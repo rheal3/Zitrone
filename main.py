@@ -7,6 +7,8 @@ def gather_ingredients():
         ingredient = input("Ingredient: ")
         if ingredient == "done":
             return ingredients
+        elif ingredient == '':
+            continue
         amount = input(f"Amount of {ingredient}: ")
         ingredients[ingredient] = amount
 
@@ -22,13 +24,14 @@ def gather_recipe_steps():
         count += 1
 
 def format_recipe(recipe_name, recipe_ingredients, recipe_steps):
-    print(f"\n{recipe_name.title()}")
-    print("\nIngredients:")
+    completed = f"""\n{recipe_name.title()}
+    \nIngredients: """
     for ingredient, amount in recipe_ingredients.items():
-        print(f"{amount:<8} {ingredient.lower()}")
-    print("\nSteps: ")
+        completed += f"\n{amount:<8} {ingredient.lower()}"
+    completed += "\n\nSteps: "
     for count, step in recipe_steps.items():
-        print(f"Step {count}:  {step}")
+        completed += f"\nStep {count}:  {step}"
+    return completed
 
 def save_recipe(recipe_name, compiled_recipe):
     text_file = open(f"{recipe_name}.txt", "w")
