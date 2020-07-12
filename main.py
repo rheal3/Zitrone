@@ -88,7 +88,9 @@ if choice == 'input':
     save = input("\nWould you like to save the recipe to your database? (y/n) ")
 
     if save == 'y':
-        save_recipe(os.path.join('./recipe_database/', recipe_name.lower()), compiled_recipe)
+        if not os.path.exists('./recipe_database'):
+            os.makedirs('./recipe_database')
+        save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
         print("Your recipe has been saved.")
 
     else:
@@ -114,11 +116,17 @@ elif choice == 'database':
     access = input("\nWould you like to access a recipe? (y/n) ")
     if access == 'y':
         recipe_to_access = input("Which recipe would you like to access? ")
+        while recipe_to_access.lower() not in database_list:
+            print("Recipe not in database.")
+            recipe_to_access = input("Which recipe would you like to access? ")
+
         if recipe_to_access.lower() in database_list:
             file_to_open = open(os.path.join('./recipe_database/', database_list[database_list.index(recipe_to_access)] + '.txt'), 'r')
             for line in file_to_open:
                 print(line, end="")
             print("\n")
+
+            # Would you like to access another recipe?
 
 
     elif access == 'n':
