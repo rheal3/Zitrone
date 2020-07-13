@@ -1,47 +1,8 @@
 import os
-# os.system('clear')
+import functions
 
 
-def gather_ingredients():
-    ingredients = {}
-    ingredient = ""
-    while ingredient != "done":
-        ingredient = input("Ingredient: ")
-        if ingredient == "done":
-            return ingredients
-        elif ingredient == '':
-            continue
-        amount = input(f"Amount of {ingredient}: ")
-        ingredients[ingredient] = amount
-    return ingredients
-
-def gather_recipe_steps():
-    count = 1
-    method = {}
-    step = ""
-    while step != "done":
-        step = input(f"Step {count}: ")
-        if step == "done":
-            return method
-        method[count] = step
-        count += 1
-
-def format_recipe(recipe_name, recipe_ingredients, recipe_steps):
-    completed = f"""\n{recipe_name.title()}
-    \nIngredients: """
-    for ingredient, amount in recipe_ingredients.items():
-        completed += f"\n{amount:<8} {ingredient.lower()}"
-    completed += "\n\nSteps: "
-    for count, step in recipe_steps.items():
-        completed += f"\nStep {count}:  {step}"
-    return completed
-
-def save_recipe(recipe_name, compiled_recipe):
-    text_file = open(f"{recipe_name}.txt", "w")
-    text_file.write(compiled_recipe)
-    text_file.close()
-
-
+# Main Code
 os.system('clear')
 
 print("""Welcome to {}!
@@ -68,20 +29,20 @@ if choice == 'input':
     print("Now let's enter some ingredients. We'll enter the ingredients first and then the amount that we need after.")
     print("When you finish type 'done' to move to the next step.")
 
-    ingredients_list = gather_ingredients()
+    ingredients = functions.gather_ingredients()
 
     os.system('clear')
 
     print("Now that we've entered the ingredients, let's type in the method.")
     print("Once again you can type in 'done' when you are finished.")
 
-    recipe_steps = gather_recipe_steps()
+    recipe_steps = functions.gather_recipe_steps()
 
     os.system('clear')
 
     print("Compiling recipe . . .")
 
-    compiled_recipe = format_recipe(recipe_name, ingredients_list, recipe_steps)
+    compiled_recipe = functions.format_recipe(recipe_name, ingredients, recipe_steps)
 
     print(compiled_recipe)
 
@@ -90,8 +51,11 @@ if choice == 'input':
     if save == 'y':
         if not os.path.exists('./recipe_database'):
             os.makedirs('./recipe_database')
-        save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
+        functions.save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
+
         print("Your recipe has been saved.")
+
+        recipe_by_ingredients = functions.store_recipe_by_ingredients(ingredients, recipe_name)
 
     else:
         print("Deleting data.")
@@ -109,31 +73,27 @@ elif choice == 'database':
         for file in files:
             database_list.append(os.path.join('./recipe_database/', file))
 
-    for i in range(0, len(database_list)):
-        database_list[i] = database_list[i].replace("./recipe_database/", "").replace(".txt", "").lower()
-        print(database_list[i].title())
+    if len(database_list) > 0:
 
-    access = input("\nWould you like to access a recipe? (y/n) ")
-    if access == 'y':
-        recipe_to_access = input("Which recipe would you like to access? ")
-        while recipe_to_access.lower() not in database_list:
-            print("Recipe not in database.")
-            recipe_to_access = input("Which recipe would you like to access? ")
+        for i in range(0, len(database_list)):
+            database_list[i] = database_list[i].replace("./recipe_database/", "").replace(".txt", "").lower()
+            print(database_list[i].title())
 
-        if recipe_to_access.lower() in database_list:
-            file_to_open = open(os.path.join('./recipe_database/', database_list[database_list.index(recipe_to_access)] + '.txt'), 'r')
-            for line in file_to_open:
-                print(line, end="")
-            print("\n")
-
+        access = input("\nWould you like to access a recipe? (y/n) ")
+        if access == 'y':
+            functions.access_recipe(database_list)
             # Would you like to access another recipe?
 
+        elif access == 'n':
+            input("Type 'main' to return to the main menu. ")
+        else:
+            print("Command not understood.")
+            input("Enter a valid command. ")
 
-    elif access == 'n':
-        input("Type 'main' to return to the main menu. ")
     else:
-        print("Command not understood.")
-        input("Enter a valid command. ")
+        print("There are currently no recipes in your database.")
+            # Return to main and input to create.
+
 
 
 elif choice == 'help':
