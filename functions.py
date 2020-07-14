@@ -10,9 +10,8 @@ def main():
     To input a new recipe you will use the 'input' command.
     If you want to view your database of recipes you can do so by typing 'database' command.
     If you ever need help, you can type in the 'help' command.
-    And if you want to come back here to the main screen just type the 'exit' command.
-    When you're done looking at your recipes you can always exit the application entirely using CTRL + C .""")
-    return input("What would you like to do? ")
+    To exit the program type 'exit'.""")
+    return input("What would you like to do (input/database/exit)? ")
 
 
 # Input Recipe Functions
@@ -64,8 +63,14 @@ def store_recipe_by_ingredients(ingredients_dictionary, recipe_name):
 
 
 # Database Functions
+def list_of_recipes(database_list):
+    for i in range(0, len(database_list)):
+        database_list[i] = database_list[i].replace("./recipe_database/", "").replace(".txt", "").lower()
+        print(database_list[i].title())
+    print("\n", end="")
 
-def access_recipe(database_list):
+
+def open_recipe(database_list):
     recipe_to_access = input("Which recipe would you like to access? ")
     while recipe_to_access.lower() not in database_list:
         print("Recipe not in database.")
@@ -77,3 +82,12 @@ def access_recipe(database_list):
         for line in file_to_open:
             print(line, end="")
         print("\n")
+    return input("Would you like to access another recipe? (y/n) ")
+
+
+# Help Functions
+
+def help():
+    'exit'
+    'input'
+    'database'

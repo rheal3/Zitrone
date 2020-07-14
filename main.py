@@ -48,13 +48,13 @@ while choice != 'exit':
 
             recipe_by_ingredients = functions.store_recipe_by_ingredients(ingredients, recipe_name)
 
-            time.sleep(2)
+            time.sleep(1)
             choice = functions.main()
 
         else:
             print("Deleting data . . .")
 
-            time.sleep(2)
+            time.sleep(1)
             choice = functions.main()
 
 
@@ -62,30 +62,31 @@ while choice != 'exit':
     elif choice == 'database':
         os.system('clear')
         print("Accessing data . . . \n")
-        time.sleep(2)
+        time.sleep(.5)
         database_list = [os.path.join('./recipe_database/', file) for root, directories, files in os.walk('./recipe_database/') for file in files]
 
         if len(database_list) > 0:
 
-            for i in range(0, len(database_list)):
-                database_list[i] = database_list[i].replace("./recipe_database/", "").replace(".txt", "").lower()
-                print(database_list[i].title())
+            functions.list_of_recipes(database_list)
 
-            access = input("\nWould you like to access a recipe? (y/n) ")
-            if access == 'y':
-                functions.access_recipe(database_list)
-                # Would you like to access another recipe?
-            elif access == 'n':
+            access = input("Would you like to access a recipe? (y/n) ")
+            while access == 'y':
+                access = functions.open_recipe(database_list)
+                if access != 'n':
+                    os.system('clear')
+                    functions.list_of_recipes(database_list)
+
+            if access == 'n':
                 print("Returning to main menu . . .")
-                time.sleep(2)
+                time.sleep(1)
                 choice = functions.main()
             else:
                 print("Command not understood.")
-                input("Enter a valid command. (y/n)")
+                input("Enter a valid command. (y/n) ")
         else:
             print("There are currently no recipes in your database.")
-            time.sleep(2)
-            functions.main()
+            time.sleep(1)
+            choice = functions.main()
 
 
 
@@ -93,3 +94,5 @@ while choice != 'exit':
         pass
     else:
         print("That is not a valid command.")
+        time.sleep(1)
+        choice = functions.main()
