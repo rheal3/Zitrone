@@ -61,6 +61,8 @@ def store_recipe_by_ingredients(ingredients_dictionary, recipe_name):
         recipe_by_ingredients[ingredient] = [recipe_name]
     return recipe_by_ingredients
 
+
+
 # Search Functions
 def append_record(dictionary):
     with open('ingredient_search', 'a') as file:
@@ -78,6 +80,15 @@ def access_record():
                 else:
                     ingredients_dictionary[key] += value
     return ingredients_dictionary
+
+def search_by_ingredient(ingredient_to_find, ingredient_search):
+    recipes_with_ingredient = []
+    for ingredient in ingredient_search:
+        if ingredient == ingredient_to_find:
+            recipes_with_ingredient += ingredient_search[ingredient]
+    print("Searching database . . .")
+    return recipes_with_ingredient
+
 
 
 

@@ -95,22 +95,32 @@ while choice.lower().strip() != 'exit':
 
     elif choice == 'search':
         if len(database_list) > 0:
-            print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
-            print("If you would like to search for a recipe type 'recipe'.")
-            print("If you would like to search for recipes based on ingredients type 'ingredient'.")
-            option = input()
+            continue_search = True
+            while continue_search == True:
+                os.system('clear')
+                print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
+                ingredient_to_find = input("Type in the ingredient you would like to use: ")
 
-            if option == 'recipe':
-                pass
-            elif option == 'ingredient':
                 ingredient_search = functions.access_record()
-                ingredient = input("Type the name of the ingredient: ")
-                for ingredient in ingredient_search:
-                    print(ingredient)
-            else:
-                print("Search by recipe name or ingredients only.")
-                option = input("(recipe/ingredient) ")
+                recipes_with_ingredient = functions.search_by_ingredient(ingredient_to_find, ingredient_search)
 
+                # for ingredient in ingredient_search:
+                #     if ingredient == ingredient_to_find:
+                #         recipes_with_ingredient += ingredient_search[ingredient]
+                # print("Searching database . . .")
+                time.sleep(1)
+
+                if len(recipes_with_ingredient) > 0:
+                    print(f"Here is a list of recipes with {ingredient_to_find}:\n")
+                    for recipe in recipes_with_ingredient:
+                        print(recipe)
+                else:
+                    print(f"Sorry, there don't seem to be any recipes with {ingredient_to_find}.")
+
+                option = input("\nWould you like to make another search? (y/n) ")
+                if option == 'n':
+                    continue_search = False
+                    choice = functions.main()
 
 
         else:
