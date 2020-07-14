@@ -1,4 +1,5 @@
 import os
+import json
 
 # Main Entry Function
 def main():
@@ -57,8 +58,26 @@ def save_recipe(recipe_name, compiled_recipe):
 def store_recipe_by_ingredients(ingredients_dictionary, recipe_name):
     recipe_by_ingredients = {}
     for ingredient, amount in ingredients_dictionary.items():
-        recipe_by_ingredients[ingredient] = recipe_name
+        recipe_by_ingredients[ingredient] = [recipe_name]
     return recipe_by_ingredients
+
+# Search Functions
+def append_record(dictionary):
+    with open('ingredient_search', 'a') as file:
+        json.dump(dictionary, file)
+        file.write(os.linesep)
+
+def access_record():
+    ingredients_dictionary = {}
+    with open('ingredient_search') as file:
+        record_list = [json.loads(line) for line in file]
+        for line in record_list:
+            for key, value in line.items():
+                if key not in ingredients_dictionary:
+                    ingredients_dictionary[key] = value
+                else:
+                    ingredients_dictionary[key] += value
+    return ingredients_dictionary
 
 
 

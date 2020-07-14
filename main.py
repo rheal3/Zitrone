@@ -3,10 +3,12 @@ import functions
 import time
 
 # Main Code
+database_list = [os.path.join('./recipe_database/', file) for root, directories, files in os.walk('./recipe_database/') for file in files]
+
 
 choice = functions.main()
 
-while choice != 'exit':
+while choice.lower().strip() != 'exit':
 
     if choice == 'input':
         os.system('clear')
@@ -46,7 +48,10 @@ while choice != 'exit':
 
             print("Your recipe has been saved.")
 
-            recipe_by_ingredients = functions.store_recipe_by_ingredients(ingredients, recipe_name)
+            recipe_by_ingredients = {}
+            recipe_by_ingredients.update(functions.store_recipe_by_ingredients(ingredients, recipe_name))
+
+            functions.append_record(recipe_by_ingredients)
 
             time.sleep(1)
             choice = functions.main()
@@ -63,7 +68,6 @@ while choice != 'exit':
         os.system('clear')
         print("Accessing data . . . \n")
         time.sleep(.5)
-        database_list = [os.path.join('./recipe_database/', file) for root, directories, files in os.walk('./recipe_database/') for file in files]
 
         if len(database_list) > 0:
 
@@ -88,6 +92,31 @@ while choice != 'exit':
             time.sleep(1)
             choice = functions.main()
 
+
+    elif choice == 'search':
+        if len(database_list) > 0:
+            print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
+            print("If you would like to search for a recipe type 'recipe'.")
+            print("If you would like to search for recipes based on ingredients type 'ingredient'.")
+            option = input()
+
+            if option == 'recipe':
+                pass
+            elif option == 'ingredient':
+                ingredient_search = functions.access_record()
+                ingredient = input("Type the name of the ingredient: ")
+                for ingredient in ingredient_search:
+                    print(ingredient)
+            else:
+                print("Search by recipe name or ingredients only.")
+                option = input("(recipe/ingredient) ")
+
+
+
+        else:
+            print("There are currently no recipes in your database to search from.")
+            time.sleep(1)
+            choice = functions.main()
 
 
     elif choice == 'help':
