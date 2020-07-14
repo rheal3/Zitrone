@@ -3,15 +3,15 @@ import os
 # Main Entry Function
 def main():
     os.system('clear')
-    print("""Welcome to {}!
+    print("""Welcome to Zitrone!
     This is an app that allows you to create recipes and store them in your own personal database.
     Let's get started!
     To begin you're going to need to know a few simple commands:
-    To input a new recipe you will use the 'input' command.
-    If you want to view your database of recipes you can do so by typing 'database' command.
-    If you ever need help, you can type in the 'help' command.
-    To exit the program type 'exit'.""")
-    return input("What would you like to do (input/database/exit)? ")
+        {0}exit{1}: exit the program
+        {0}input{1}: input a new recipe
+        {0}database{1}: view a list of all of your inputted recipes
+        {0}help{1}: view this list of the commands""".format('\033[1m', '\033[0m'))
+    return input("What would you like to do (input/database/help/exit)? ")
 
 
 # Input Recipe Functions
@@ -71,12 +71,12 @@ def list_of_recipes(database_list):
 
 
 def open_recipe(database_list):
-    recipe_to_access = input("Which recipe would you like to access? ")
-    while recipe_to_access.lower() not in database_list:
+    recipe_to_access = input("Which recipe would you like to access? ").lower().strip()
+    while recipe_to_access not in database_list:
         print("Recipe not in database.")
         recipe_to_access = input("Which recipe would you like to access? ")
 
-    if recipe_to_access.lower() in database_list:
+    if recipe_to_access in database_list:
         os.system('clear')
         file_to_open = open(os.path.join('./recipe_database/', database_list[database_list.index(recipe_to_access)] + '.txt'), 'r')
         for line in file_to_open:
@@ -88,6 +88,11 @@ def open_recipe(database_list):
 # Help Functions
 
 def help():
-    'exit'
-    'input'
-    'database'
+    print("I see you've found the tremendously helpful help page!")
+    print("""List of Commands:
+        {0}exit{1}: exit the program
+        {0}input{1}: input a new recipe
+        {0}database{1}: view a list of all of your inputted recipes
+        {0}help{1}: view this list of the commands""".format('\033[1m', '\033[0m'))
+    # print("""About Zitrone:
+    # Zitrone allows you to input your recipes and store them to a database.""")

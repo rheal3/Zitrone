@@ -91,7 +91,9 @@ while choice != 'exit':
 
 
     elif choice == 'help':
-        pass
+        os.system('clear')
+        functions.help()
+        choice = input("What would you like to do? ")
     else:
         print("That is not a valid command.")
         time.sleep(1)
