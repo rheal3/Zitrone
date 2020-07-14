@@ -14,7 +14,7 @@ while choice.lower().strip() != 'exit':
         os.system('clear')
 
         print("I see you've decided to input a recipe!")
-        recipe_name = input("What is the name of the recipe? ").title()
+        recipe_name = input("What is the name of the recipe? ").title().strip()
 
         os.system('clear')
 
@@ -39,7 +39,7 @@ while choice.lower().strip() != 'exit':
 
         print(compiled_recipe)
 
-        save = input("\nWould you like to save the recipe to your database? (y/n) ")
+        save = input("\nWould you like to save the recipe to your database? (y/n) ").lower().strip()
 
         if save == 'y':
             if not os.path.exists('./recipe_database'):
@@ -73,7 +73,7 @@ while choice.lower().strip() != 'exit':
 
             functions.list_of_recipes(database_list)
 
-            access = input("Would you like to access a recipe? (y/n) ")
+            access = input("Would you like to access a recipe? (y/n) ").lower().strip()
             while access == 'y':
                 access = functions.open_recipe(database_list)
                 if access != 'n':
@@ -86,7 +86,7 @@ while choice.lower().strip() != 'exit':
                 choice = functions.main()
             else:
                 print("Command not understood.")
-                input("Enter a valid command. (y/n) ")
+                access = input("Enter a valid command. (y/n) ").lower().strip()
         else:
             print("There are currently no recipes in your database.")
             time.sleep(1)
@@ -99,15 +99,11 @@ while choice.lower().strip() != 'exit':
             while continue_search == True:
                 os.system('clear')
                 print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
-                ingredient_to_find = input("Type in the ingredient you would like to use: ")
+                ingredient_to_find = input("Type in the ingredient you would like to use: ").lower().strip()
 
                 ingredient_search = functions.access_record()
                 recipes_with_ingredient = functions.search_by_ingredient(ingredient_to_find, ingredient_search)
 
-                # for ingredient in ingredient_search:
-                #     if ingredient == ingredient_to_find:
-                #         recipes_with_ingredient += ingredient_search[ingredient]
-                # print("Searching database . . .")
                 time.sleep(1)
 
                 if len(recipes_with_ingredient) > 0:
@@ -117,7 +113,7 @@ while choice.lower().strip() != 'exit':
                 else:
                     print(f"Sorry, there don't seem to be any recipes with {ingredient_to_find}.")
 
-                option = input("\nWould you like to make another search? (y/n) ")
+                option = input("\nWould you like to make another search? (y/n) ").lower().strip()
                 if option == 'n':
                     continue_search = False
                     choice = functions.main()
@@ -132,7 +128,7 @@ while choice.lower().strip() != 'exit':
     elif choice == 'help':
         os.system('clear')
         functions.help()
-        choice = input("What would you like to do? ")
+        choice = input("What would you like to do? ").lower().strip()
     else:
         print("That is not a valid command.")
         time.sleep(1)
