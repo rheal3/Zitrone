@@ -1,5 +1,20 @@
 import os
 
+# Main Entry Function
+def main():
+    os.system('clear')
+    print("""Welcome to {}!
+    This is an app that allows you to create recipes and store them in your own personal database.
+    Let's get started!
+    To begin you're going to need to know a few simple commands:
+    To input a new recipe you will use the 'input' command.
+    If you want to view your database of recipes you can do so by typing 'database' command.
+    If you ever need help, you can type in the 'help' command.
+    And if you want to come back here to the main screen just type the 'exit' command.
+    When you're done looking at your recipes you can always exit the application entirely using CTRL + C .""")
+    return input("What would you like to do? ")
+
+
 # Input Recipe Functions
 def gather_ingredients():
     ingredients = {}
@@ -57,6 +72,7 @@ def access_recipe(database_list):
         recipe_to_access = input("Which recipe would you like to access? ")
 
     if recipe_to_access.lower() in database_list:
+        os.system('clear')
         file_to_open = open(os.path.join('./recipe_database/', database_list[database_list.index(recipe_to_access)] + '.txt'), 'r')
         for line in file_to_open:
             print(line, end="")
