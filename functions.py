@@ -86,7 +86,6 @@ def search_by_ingredient(ingredient_to_find, ingredient_search):
     for ingredient in ingredient_search:
         if ingredient == ingredient_to_find:
             recipes_with_ingredient += ingredient_search[ingredient]
-    print("Searching database . . .")
     return recipes_with_ingredient
 
 def sort_recipes_by_most_ingredients(recipes_mult_ingredients):
@@ -108,10 +107,10 @@ def list_of_recipes(database_list):
 
 
 def open_recipe(database_list):
-    recipe_to_access = input("Which recipe would you like to access? ")
+    recipe_to_access = input("Which recipe would you like to view? ")
     while recipe_to_access.lower().strip() not in database_list:
         print("Recipe not in database.")
-        recipe_to_access = input("Which recipe would you like to access? ")
+        recipe_to_access = input("Which recipe would you like to view? ")
 
     if recipe_to_access in database_list:
         os.system('clear')
@@ -123,7 +122,6 @@ def open_recipe(database_list):
 
 
 # Help Functions
-
 def help():
     print("I see you've found the tremendously helpful help page!")
     print("""List of Commands:
