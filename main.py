@@ -96,27 +96,66 @@ while choice.lower().strip() != 'exit':
     elif choice == 'search':
         if len(database_list) > 0:
             continue_search = True
+            
             while continue_search == True:
                 os.system('clear')
                 print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
-                ingredient_to_find = input("Type in the ingredient you would like to use: ").lower().strip()
-
+                print("This is a list of all the ingredients you can search with: \n")
                 ingredient_search = functions.access_record()
-                recipes_with_ingredient = functions.search_by_ingredient(ingredient_to_find, ingredient_search)
+                ingredient_list = [ingredient for ingredient, recipe in ingredient_search.items()]
+                print(ingredient_list, '\n')
+                single_or_mult = input("If you would like to search using multiple ingredients type 'mult', otherwise press 'ENTER'. ").lower().strip()
 
-                time.sleep(1)
+                if single_or_mult == 'mult':
+                    recipes_mult_ingredients = {}
+                    ingredient_to_find = ""
+                    ingredient_to_find_list = []
 
-                if len(recipes_with_ingredient) > 0:
-                    print(f"Here is a list of recipes with {ingredient_to_find}:\n")
-                    for recipe in recipes_with_ingredient:
-                        print(recipe)
+                    while ingredient_to_find.strip().lower() != 'done':
+                        ingredient_to_find = input("Type in the ingredient you would like to use: ")
+                        if ingredient_to_find == 'done':
+                            continue
+                        ingredient_to_find_list.append(ingredient_to_find)
+                        recipes_with_ingredient = functions.search_by_ingredient(ingredient_to_find, ingredient_search)
+
+                        for recipe in recipes_with_ingredient:
+                            if recipe not in recipes_mult_ingredients:
+                                recipes_mult_ingredients[recipe] = 1
+                            else:
+                                recipes_mult_ingredients[recipe] += 1
+                            print(recipes_mult_ingredients)
+                    print("Here is a list of recipes using: {}".format(', '.join(ingredient_to_find_list)))
+
+                    while len(recipes_mult_ingredients) > 0:
+                        highest_value_recipe = functions.sort_recipes_by_most_ingredients(recipes_mult_ingredients)
+                        print(highest_value_recipe)
+                        del recipes_mult_ingredients[highest_value_recipe]
+
+                    choice = input("Would you like to make another search? (y/n)")
+                    if choice == 'y':
+                        choice = 'search'
+                    else:
+                        continue_search = False
+                        choice = functions.main()
+
                 else:
-                    print(f"Sorry, there don't seem to be any recipes with {ingredient_to_find}.")
+                    ingredient_to_find = input("Type in the ingredient you would like to use: ").lower().strip()
 
-                option = input("\nWould you like to make another search? (y/n) ").lower().strip()
-                if option == 'n':
-                    continue_search = False
-                    choice = functions.main()
+                    recipes_with_ingredient = functions.search_by_ingredient(ingredient_to_find, ingredient_search)
+
+                    time.sleep(1)
+
+                    if len(recipes_with_ingredient) > 0:
+                        print(f"Here is a list of recipes with {ingredient_to_find}:\n")
+                        for recipe in recipes_with_ingredient:
+                            print(recipe)
+                    else:
+                        print(f"Sorry, there don't seem to be any recipes with {ingredient_to_find}.")
+
+                    option = input("\nWould you like to make another search? (y/n) ").lower().strip()
+                    if option == 'n':
+                        continue_search = False
+                        choice = functions.main()
 
 
         else:
@@ -129,6 +168,7 @@ while choice.lower().strip() != 'exit':
         os.system('clear')
         functions.help()
         choice = input("What would you like to do? ").lower().strip()
+
     else:
         print("That is not a valid command.")
         time.sleep(1)

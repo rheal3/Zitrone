@@ -19,13 +19,13 @@ def main():
 def gather_ingredients():
     ingredients = {}
     ingredient = ""
-    while ingredient != "done":
+    while ingredient.lower().strip() != "done":
         ingredient = input("Ingredient: ")
         if ingredient == "done":
             return ingredients
         elif ingredient == '':
             continue
-        amount = input(f"Amount of {ingredient}: ")
+        amount = input(f"Amount of {ingredient}: ").strip()
         ingredients[ingredient] = amount
     return ingredients
 
@@ -89,6 +89,13 @@ def search_by_ingredient(ingredient_to_find, ingredient_search):
     print("Searching database . . .")
     return recipes_with_ingredient
 
+def sort_recipes_by_most_ingredients(recipes_mult_ingredients):
+    highest_value_recipe = ""
+    highest_value = 0
+    for recipe, amount in recipes_mult_ingredients.items():
+        if amount > highest_value:
+            highest_value_recipe = recipe
+    return highest_value_recipe
 
 
 
@@ -101,8 +108,8 @@ def list_of_recipes(database_list):
 
 
 def open_recipe(database_list):
-    recipe_to_access = input("Which recipe would you like to access? ").lower().strip()
-    while recipe_to_access not in database_list:
+    recipe_to_access = input("Which recipe would you like to access? ")
+    while recipe_to_access.lower().strip() not in database_list:
         print("Recipe not in database.")
         recipe_to_access = input("Which recipe would you like to access? ")
 
@@ -112,7 +119,7 @@ def open_recipe(database_list):
         for line in file_to_open:
             print(line, end="")
         print("\n")
-    return input("Would you like to access another recipe? (y/n) ")
+    return input("Would you like to access another recipe? (y/n) ").lower().strip()
 
 
 # Help Functions
