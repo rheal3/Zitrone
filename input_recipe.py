@@ -36,9 +36,12 @@ def format_recipe(recipe_name, recipe_ingredients, recipe_steps):
     return completed
 
 def save_recipe(recipe_name, compiled_recipe):
-    text_file = open(f"{recipe_name}.txt", "w")
-    text_file.write(compiled_recipe)
-    text_file.close()
+    try:
+        text_file = open(f"{recipe_name}.txt", "w")
+        text_file.write(compiled_recipe)
+        text_file.close()
+    except:
+        print("Unable to save recipe.")
 
 def store_recipe_by_ingredients(ingredients_dictionary, recipe_name):
     recipe_by_ingredients = {}
