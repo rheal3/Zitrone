@@ -1,4 +1,5 @@
 import json
+import os
 
 # Search Functions
 def append_record(dictionary):
@@ -8,15 +9,18 @@ def append_record(dictionary):
 
 def access_record():
     ingredients_dictionary = {}
-    with open('ingredient_search') as file:
-        record_list = [json.loads(line) for line in file]
-        for line in record_list:
-            for key, value in line.items():
-                if key not in ingredients_dictionary:
-                    ingredients_dictionary[key] = value
-                else:
-                    ingredients_dictionary[key] += value
-    return ingredients_dictionary
+    try:
+        with open('ingredient_search') as file:
+            record_list = [json.loads(line) for line in file]
+            for line in record_list:
+                for key, value in line.items():
+                    if key not in ingredients_dictionary:
+                        ingredients_dictionary[key] = value
+                    else:
+                        ingredients_dictionary[key] += value
+        return ingredients_dictionary
+    except:
+        return "Error."
 
 def search_by_ingredient(ingredient_to_find, ingredient_search):
     recipes_with_ingredient = []

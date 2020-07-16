@@ -20,6 +20,8 @@ def gather_recipe_steps():
         step = input(f"Step {count}: ")
         if step == "done":
             return method
+        elif step == "":
+            step = input(f"Step {count}: ")
         method[count] = step
         count += 1
 
