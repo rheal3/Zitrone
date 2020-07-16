@@ -5,7 +5,6 @@ import time
 # Main Code
 database_list = [os.path.join('./recipe_database/', file) for root, directories, files in os.walk('./recipe_database/') for file in files]
 
-
 choice = functions.main()
 
 while choice.lower().strip() != 'exit':
@@ -15,6 +14,12 @@ while choice.lower().strip() != 'exit':
 
         print("I see you've decided to input a recipe!")
         recipe_name = input("What is the name of the recipe? ").title().strip()
+        potential_path = f'./recipe_database/{recipe_name.lower()}.txt'
+        print(os.path.isfile(potential_path))
+
+        if os.path.exists(potential_path):
+            print(f"There is already a recipe called {recipe_name} in your database.")
+            recipe_name = input("What would you like to name the recipe? ").title().strip()
 
         os.system('clear')
 
@@ -40,23 +45,22 @@ while choice.lower().strip() != 'exit':
         print(compiled_recipe)
 
         save = input("\nWould you like to save the recipe to your database? (y/n) ").lower().strip()
+        while save != 'y' and save != 'n':
+            print("Command not understood.")
+            save = input("Enter a valid command. (y/n) ").lower().strip()
 
         if save == 'y':
             if not os.path.exists('./recipe_database'):
                 os.makedirs('./recipe_database')
             functions.save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
-
             print("Your recipe has been saved.")
-
             recipe_by_ingredients = {}
             recipe_by_ingredients.update(functions.store_recipe_by_ingredients(ingredients, recipe_name))
-
             functions.append_record(recipe_by_ingredients)
-
             time.sleep(1)
             choice = functions.main()
 
-        else:
+        elif save == 'n':
             print("Deleting data . . .")
 
             time.sleep(1)
