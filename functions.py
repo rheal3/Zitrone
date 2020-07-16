@@ -13,7 +13,7 @@ def main():
         {0}database{1}: view a list of all of your inputted recipes
         {0}search{1}: search for recipes using specific ingredients
         {0}help{1}: view list of commands""".format('\033[1m', '\033[0m'))
-    return input("What would you like to do (input / database / search / help / exit)? ")
+    return input("What would you like to do (input / database / search / help / exit)? ").lower().strip()
 
 
 # Input Recipe Functions

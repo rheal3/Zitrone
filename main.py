@@ -7,7 +7,7 @@ database_list = [os.path.join('./recipe_database/', file) for root, directories,
 
 choice = functions.main()
 
-while choice.lower().strip() != 'exit':
+while choice != 'exit':
 
     if choice == 'input':
         os.system('clear')
