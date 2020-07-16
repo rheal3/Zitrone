@@ -53,7 +53,7 @@ while choice != 'exit':
             if not os.path.exists('./recipe_database'):
                 os.makedirs('./recipe_database')
             input_recipe.save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
-            print("Your recipe has been saved.")
+
             recipe_by_ingredients = {}
             recipe_by_ingredients.update(input_recipe.store_recipe_by_ingredients(ingredients, recipe_name))
             search_ingredient.append_record(recipe_by_ingredients)

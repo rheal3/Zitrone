@@ -24,6 +24,7 @@ def gather_recipe_steps():
             step = input(f"Step {count}: ")
         method[count] = step
         count += 1
+    return method
 
 def format_recipe(recipe_name, recipe_ingredients, recipe_steps):
     completed = f"""\n{recipe_name.title()}
@@ -40,6 +41,8 @@ def save_recipe(recipe_name, compiled_recipe):
         text_file = open(f"{recipe_name}.txt", "w")
         text_file.write(compiled_recipe)
         text_file.close()
+        print("Your recipe has been saved.")
+
     except:
         print("Unable to save recipe.")
 
