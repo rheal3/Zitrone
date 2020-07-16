@@ -108,12 +108,14 @@ while choice != 'exit':
                 print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
                 print("This is a list of all the ingredients you can search with: \n")
                 ingredient_search = search_ingredient.access_record()
+
                 if ingredient_search == "Error.":
                     print("This feature is unavailable at this time. Please try again later.")
                     time.sleep(2)
                     continue_search = False
                     choice = functions.main()
                     continue
+
                 ingredient_list = [ingredient for ingredient, recipe in ingredient_search.items()]
                 print(ingredient_list, '\n')
                 print("You can search using multiple ingredients. Type {0}'done'{1} when you're done. ".format('\033[1m', '\033[0m'))
@@ -145,7 +147,7 @@ while choice != 'exit':
                     print(highest_value_recipe)
                     del recipes_mult_ingredients[highest_value_recipe]
 
-                choice = input("\nWould you like to make another search? (y/n)")
+                choice = input("\nWould you like to make another search? (y/n) ")
                 if choice == 'y':
                     choice = 'search'
                 else:

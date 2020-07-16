@@ -2,8 +2,8 @@
 def gather_ingredients():
     ingredients = {}
     ingredient = ""
-    while ingredient.lower().strip() != "done":
-        ingredient = input("Ingredient: ")
+    while ingredient != "done":
+        ingredient = input("Ingredient: ").lower().strip()
         if ingredient == "done":
             return ingredients
         elif ingredient == '':
@@ -20,7 +20,7 @@ def gather_recipe_steps():
         step = input(f"Step {count}: ")
         if step == "done":
             return method
-        elif step == "":
+        while step == "" and step != "done":
             step = input(f"Step {count}: ")
         method[count] = step
         count += 1

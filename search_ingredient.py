@@ -17,7 +17,7 @@ def access_record():
                     if key not in ingredients_dictionary:
                         ingredients_dictionary[key] = value
                     else:
-                        ingredients_dictionary[key] += value
+                        ingredients_dictionary[key.lower()] += value
         return ingredients_dictionary
     except:
         return "Error."
