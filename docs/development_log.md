@@ -49,11 +49,18 @@ Prioritisation:
 2. database - the database function would still allow the user to view their recipes and look through them for ingredients even if there was no search function. In addition, I thought I might be able to use some of the code from the database function in the search function.
 3. search - I viewed this more as an extra feature if there was time as it was not a vital part in inputting or viewing recipes.
 
+**Trello**
+11 July Trello
 ![Trello](./images/11_July_Trello.jpg)
+13 July Trello
 ![Trello](./images/13_July_Trello.jpg)
+14 July Trello
 ![Trello](./images/14_July_Trello.jpg)
+15 July Trello
 ![Trello](./images/15_July_Trello.jpg)
+16 July Trello
 ![Trello](./images/16_July_Trello.jpg)
+17 July Trello 
 ![Trello](./images/17_July_Trello.jpg)
 
 ## Status Updates
