@@ -1,21 +1,21 @@
 #!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
 
 import os
-import functions
-import database
-import search_ingredient
-import input_recipe
+import main_functions
+import database_functions
+import search_functions
+import input_functions
 import time
 import sys
 
 # Options
 if "--help" in sys.argv:
-    functions.help()
+    main_functions.help()
 elif "--about" in sys.argv:
-    functions.about()
+    main_functions.about()
 else:
     # Main Code
-    choice = functions.main()
+    choice = main_functions.main()
     while choice != 'exit':
 
         if choice == 'input':
@@ -35,20 +35,20 @@ else:
             print("Now let's enter some ingredients. We'll enter the ingredients first and then the amount that we need after.")
             print("When you finish type {0}'done'{1} to move to the next step.".format('\033[1m', '\033[0m'))
 
-            ingredients = input_recipe.gather_ingredients()
+            ingredients = input_functions.gather_ingredients()
 
             os.system('clear')
 
             print("Now that we've entered the ingredients, let's type in the method.")
             print("Once again you can type in {0}'done'{1} when you are finished.".format('\033[1m', '\033[0m'))
 
-            recipe_steps = input_recipe.gather_recipe_steps()
+            recipe_steps = input_functions.gather_recipe_steps()
 
             os.system('clear')
 
             print("Compiling recipe . . .")
 
-            compiled_recipe = input_recipe.format_recipe(recipe_name, ingredients, recipe_steps)
+            compiled_recipe = input_functions.format_recipe(recipe_name, ingredients, recipe_steps)
 
             print(compiled_recipe)
 
@@ -60,20 +60,19 @@ else:
             if save == 'y':
                 if not os.path.exists('./recipe_database'):
                     os.makedirs('./recipe_database')
-                input_recipe.save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
+                input_functions.save_recipe(os.path.join('./recipe_database', recipe_name.lower()), compiled_recipe)
 
                 recipe_by_ingredients = {}
-                recipe_by_ingredients.update(input_recipe.store_recipe_by_ingredients(ingredients, recipe_name))
-                search_ingredient.append_record(recipe_by_ingredients)
+                recipe_by_ingredients.update(input_functions.store_recipe_by_ingredients(ingredients, recipe_name))
+                search_functions.append_record(recipe_by_ingredients)
                 time.sleep(1)
-                choice = functions.main()
+                choice = main_functions.main()
 
             elif save == 'n':
                 print("Deleting data . . .")
 
                 time.sleep(1)
-                choice = functions.main()
-
+                choice = main_functions.main()
 
 
         elif choice == 'database':
@@ -84,26 +83,26 @@ else:
 
             if len(database_list) > 0:
 
-                database.list_of_recipes(database_list)
+                database_functions.list_of_recipes(database_list)
 
                 access = input("Would you like to view a recipe? (y/n) ").lower().strip()
                 while access == 'y':
-                    access = database.open_recipe(database_list)
+                    access = database_functions.open_recipe(database_list)
                     if access != 'n':
                         os.system('clear')
-                        database.list_of_recipes(database_list)
+                        database_functions.list_of_recipes(database_list)
 
                 if access == 'n':
                     print("Returning to main menu . . .")
                     time.sleep(1)
-                    choice = functions.main()
+                    choice = main_functions.main()
                 else:
                     print("Command not understood.")
                     access = input("Enter a valid command. (y/n) ").lower().strip()
             else:
                 print("There are currently no recipes in your database.")
                 time.sleep(1)
-                choice = functions.main()
+                choice = main_functions.main()
 
 
         elif choice == 'search':
@@ -115,13 +114,13 @@ else:
                     os.system('clear')
                     print("Here you may search for a specific recipe or search for an ingredient and see which recipe has it!")
                     print("This is a list of all the ingredients you can search with: \n")
-                    ingredient_search = search_ingredient.access_record()
+                    ingredient_search = search_functions.access_record()
 
                     if ingredient_search == "Error.":
                         print("This feature is unavailable at this time. Please try again later.")
                         time.sleep(2)
                         continue_search = False
-                        choice = functions.main()
+                        choice = main_functions.main()
                         continue
 
                     ingredient_list = [ingredient for ingredient, recipe in ingredient_search.items()]
@@ -137,7 +136,7 @@ else:
                         if ingredient_to_find == 'done':
                             continue
                         ingredient_to_find_list.append(ingredient_to_find)
-                        recipes_with_ingredient = search_ingredient.search_by_ingredient(ingredient_to_find, ingredient_search)
+                        recipes_with_ingredient = search_functions.search_by_ingredient(ingredient_to_find, ingredient_search)
 
                         for recipe in recipes_with_ingredient:
                             if recipe not in recipes_mult_ingredients:
@@ -153,39 +152,39 @@ else:
                     recipes_mult_ingredients_copy = recipes_mult_ingredients.copy()
 
                     while len(recipes_mult_ingredients) > 0:
-                        recipes_mult_ingredients = search_ingredient.sort_recipes_by_most_ingredients(recipes_mult_ingredients)
+                        recipes_mult_ingredients = search_functions.sort_recipes_by_most_ingredients(recipes_mult_ingredients)
 
-                    search_database_list = search_ingredient.create_search_database_list(recipes_mult_ingredients_copy, database_list)
+                    search_database_list = search_functions.create_search_database_list(recipes_mult_ingredients_copy, database_list)
 
                     access = input("\nWould you like to view a recipe? (y/n) ").lower().strip()
 
                     while access == 'y':
                         os.system('clear')
-                        database.list_of_recipes(search_database_list)
-                        access = database.open_recipe(search_database_list)
+                        database_functions.list_of_recipes(search_database_list)
+                        access = database_functions.open_recipe(search_database_list)
                     if access == 'n':
                         choice = input("\nWould you like to make another search? (y/n) ")
                         if choice == 'y':
                             choice = 'search'
                         else:
                             continue_search = False
-                            choice = functions.main()
+                            choice = main_functions.main()
                     else:
                         print("Command not understood.")
                         access = input("Enter a valid command. (y/n) ").lower().strip()
 
-
             else:
                 print("There are currently no recipes in your database to search from.")
                 time.sleep(1)
-                choice = functions.main()
+                choice = main_functions.main()
 
 
         elif choice == 'help':
-            functions.help()
+            main_functions.help()
             choice = input("What would you like to do? ").lower().strip()
+
 
         else:
             print("That is not a valid command.")
             time.sleep(1)
-            choice = functions.main()
+            choice = main_functions.main()
