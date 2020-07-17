@@ -141,9 +141,9 @@ else:
 
                         for recipe in recipes_with_ingredient:
                             if recipe not in recipes_mult_ingredients:
-                                recipes_mult_ingredients[recipe] = 1
+                                recipes_mult_ingredients[recipe] = [ingredient_to_find]
                             else:
-                                recipes_mult_ingredients[recipe] += 1
+                                recipes_mult_ingredients[recipe] += [ingredient_to_find]
 
                     os.system('clear')
                     print("Searching database . . .")
@@ -151,9 +151,9 @@ else:
                     print("Here is a list of recipes using: {} ordered by most ingredients used.\n".format(', '.join(ingredient_to_find_list)))
 
                     while len(recipes_mult_ingredients) > 0:
-                        highest_value_recipe = search_ingredient.sort_recipes_by_most_ingredients(recipes_mult_ingredients)
-                        print(highest_value_recipe)
-                        del recipes_mult_ingredients[highest_value_recipe]
+                        recipes_mult_ingredients = search_ingredient.sort_recipes_by_most_ingredients(recipes_mult_ingredients)
+
+                    ### loop to view recipes
 
                     choice = input("\nWould you like to make another search? (y/n) ")
                     if choice == 'y':

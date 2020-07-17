@@ -32,7 +32,10 @@ def search_by_ingredient(ingredient_to_find, ingredient_search):
 def sort_recipes_by_most_ingredients(recipes_mult_ingredients):
     highest_value_recipe = ""
     highest_value = 0
-    for recipe, amount in recipes_mult_ingredients.items():
-        if amount > highest_value:
+    for recipe, ingredients in recipes_mult_ingredients.items():
+        if len(ingredients) > highest_value:
+            highest_value = len(ingredients)
             highest_value_recipe = recipe
-    return highest_value_recipe
+    print(f"{highest_value_recipe} - {recipes_mult_ingredients[highest_value_recipe]}")
+    del recipes_mult_ingredients[highest_value_recipe]
+    return recipes_mult_ingredients
