@@ -150,17 +150,30 @@ else:
                     time.sleep(.5)
                     print("Here is a list of recipes using: {} ordered by most ingredients used.\n".format(', '.join(ingredient_to_find_list)))
 
+                    recipes_mult_ingredients_copy = recipes_mult_ingredients.copy()
+
                     while len(recipes_mult_ingredients) > 0:
                         recipes_mult_ingredients = search_ingredient.sort_recipes_by_most_ingredients(recipes_mult_ingredients)
 
-                    ### loop to view recipes
+                    search_database_list = search_ingredient.create_search_database_list(recipes_mult_ingredients_copy, database_list)
 
-                    choice = input("\nWould you like to make another search? (y/n) ")
-                    if choice == 'y':
-                        choice = 'search'
+                    access = input("\nWould you like to view a recipe? (y/n) ").lower().strip()
+
+                    while access == 'y':
+                        os.system('clear')
+                        database.list_of_recipes(search_database_list)
+                        access = database.open_recipe(search_database_list)
+                    if access == 'n':
+                        choice = input("\nWould you like to make another search? (y/n) ")
+                        if choice == 'y':
+                            choice = 'search'
+                        else:
+                            continue_search = False
+                            choice = functions.main()
                     else:
-                        continue_search = False
-                        choice = functions.main()
+                        print("Command not understood.")
+                        access = input("Enter a valid command. (y/n) ").lower().strip()
+
 
             else:
                 print("There are currently no recipes in your database to search from.")

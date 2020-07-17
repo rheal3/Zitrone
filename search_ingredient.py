@@ -39,3 +39,12 @@ def sort_recipes_by_most_ingredients(recipes_mult_ingredients):
     print(f"{highest_value_recipe} - {recipes_mult_ingredients[highest_value_recipe]}")
     del recipes_mult_ingredients[highest_value_recipe]
     return recipes_mult_ingredients
+
+def create_search_database_list(recipes_mult_ingredients_copy, database_list):
+    search_database_list = []
+    if len(recipes_mult_ingredients_copy) > 0:
+        for recipe_name, ingredients in recipes_mult_ingredients_copy.items():
+            search_path = f"./recipe_database/{recipe_name.lower()}.txt"
+            index = database_list.index(search_path)
+            search_database_list += [database_list[index]]
+    return search_database_list
