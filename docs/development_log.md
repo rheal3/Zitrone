@@ -50,6 +50,7 @@ Prioritisation:
 3. search - I viewed this more as an extra feature if there was time as it was not a vital part in inputting or viewing recipes.
 
 **Trello**
+
 11 July Trello
 ![Trello](./images/11_July_Trello.jpg)
 13 July Trello
@@ -60,7 +61,7 @@ Prioritisation:
 ![Trello](./images/15_July_Trello.jpg)
 16 July Trello
 ![Trello](./images/16_July_Trello.jpg)
-17 July Trello 
+17 July Trello
 ![Trello](./images/17_July_Trello.jpg)
 
 ## Status Updates
