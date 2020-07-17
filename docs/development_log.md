@@ -85,6 +85,11 @@ _Reflections:_
 - _My code felt a bit messy by the end. I felt like I was repeating things in some places and the code could have been cleaner. This may have been due to my variable names being so alike. For the next app I could write out mored pseudo code and have a clearer flow chart so I have a clearer picture of the overall outcome before I actually start coding._
 
 
+### Manual Testing
+
+![Manual Testing](./images/manual_testing.jpg)
+
+
 ## Installation Steps
 
 _System Requirement_: You must have python3 installed on your computer for this app to work.
