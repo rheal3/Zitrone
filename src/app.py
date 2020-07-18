@@ -127,6 +127,14 @@ def main_code():
                         ingredient_to_find = input("Type in the ingredient you would like to use: ").lower().strip()
                         if ingredient_to_find == 'done':
                             continue
+                            
+                        while ingredient_to_find not in ingredient_list:
+                            print("Ingredient not in database.")
+                            ingredient_to_find = input("Type in the ingredient you would like to use: ").lower().strip()
+
+                        if ingredient_to_find in ingredient_to_find_list:
+                            continue
+
                         ingredient_to_find_list.append(ingredient_to_find)
                         recipes_with_ingredient = search_functions.search_by_ingredient(ingredient_to_find, ingredient_search)
 
