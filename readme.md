@@ -69,19 +69,19 @@ Young adults starting out on their own who need a manageable and convenient plac
 
 The user will be greeted on the opening of the application with a few simple instructions and an explanation of how to find more using the 'help' option.
 
-![Zitrone](./docs/images/zitrone_img1.jpg)
+![Zitrone](./docs/zitrone_img1.jpg)
 
 The user will interact with the program through the keyboard, somewhat like a text-based computer game. They will be able to type in commands and the program will direct them to the proper function.
 
-![Zitrone](./docs/images/zitrone_img2.jpg)  
-![Zitrone](./docs/images/zitrone_img3.jpg)  
-![Zitrone](./docs/images/zitrone_img4.jpg)  
-![Zitrone](./docs/images/zitrone_img5.jpg)  
+![Zitrone](./docs/zitrone_img2.jpg)  
+![Zitrone](./docs/zitrone_img3.jpg)  
+![Zitrone](./docs/zitrone_img4.jpg)  
+![Zitrone](./docs/zitrone_img5.jpg)  
 
 
 ### Control Flow Diagram
 
-![Flow Chart](./docs/images/flow_chart.jpg)
+![Flow Chart](./docs/flow_chart.jpg)
 
 
 ### Implementation Plan
@@ -94,25 +94,21 @@ Prioritisation:
 **Trello**
 
 11 July Trello
-![Trello](./docs/images/11_July_Trello.jpg)
+![Trello](./docs/11_July_Trello.jpg)
 13 July Trello
-![Trello](./docs/images/13_July_Trello.jpg)
+![Trello](./docs/13_July_Trello.jpg)
 14 July Trello
-![Trello](./docs/images/14_July_Trello.jpg)
+![Trello](./docs/14_July_Trello.jpg)
 15 July Trello
-![Trello](./docs/images/15_July_Trello.jpg)
+![Trello](./docs/15_July_Trello.jpg)
 16 July Trello
-![Trello](./docs/images/16_July_Trello.jpg)
+![Trello](./docs/16_July_Trello.jpg)
 17 July Trello
-![Trello](./docs/images/17_July_Trello.jpg)
-
-### Status Updates
-
-- 13 July: After much research and many errors I was able to figure out how to save the recipes the user entered so they could view them the next time they opened the app! In order to achieve this miraculous feat I created a function to open a text document write the recipe the user had entered into the text document and close the text document. Now my friends came the real challenge. For low and behold I could not access the material in the text document if the user had the desire to read their recipe and create their scrumptious treat! However, with a tad more googling and many more attempts, this too was solved. When the user wished to read their recipe and typed it into the input I merely opened the desired recipe and used a for loop to read each line to the user. What a marvellous fix. Huzzah!
-
-- 16 July: Today... Today my friend I have take cautionary measures. For unbeknownst to me there were measures to take, but thanks to a wise advisor it was spotted! The recipes saved to the database were being overwritten! Oh the horror! The poor fool who inputted two recipes with the same name would surely be overcome with sadness and woe. And yet. Thanks to this keen eyed advisor the err of my program was spotted and measures have been taken. Now, you may be asking what could be done to prevent this gross occurrence, and I shall tell you: directly under the input for the name of the recipe I added a sneaky little check. Yes! A check. This check would take the potential name of the file and check that the file did not already exist in the desired directory. ~Ingenious I know.~ If (a conditional to the rescue!) the path were to already exist, the program would merely inform the user and they would be given the opportunity to choose a new name for their lavish meal. This, my friend, is my cautionary tail. You can never be too careful, and keep a watchful eye ;)
+![Trello](./docs/17_July_Trello.jpg)
 
 
 ### Manual Testing
 
-![Manual Testing](./docs/images/manual_testing.jpg)
+![Manual Testing](./docs/manual_testing.jpg)
+
+The majority of the testing was completed while making the application and was not recorded.
