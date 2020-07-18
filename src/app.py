@@ -116,7 +116,7 @@ def main_code():
                         continue
 
                     ingredient_list = [ingredient for ingredient, recipe in ingredient_search.items()]
-                    print(ingredient_list, '\n')
+                    print(sorted(ingredient_list), '\n')
                     print("You can search using multiple ingredients. Type {0}'done'{1} when you're done. ".format('\033[1m', '\033[0m'))
 
                     recipes_mult_ingredients = {}
