@@ -2,6 +2,7 @@ import input_functions
 import search_functions
 import os
 
+# sys.argv --input Quick Input Function
 def quick_input():
     os.system('clear')
 
